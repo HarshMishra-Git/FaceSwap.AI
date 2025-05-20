@@ -1,0 +1,14 @@
+Flask
+numpy
+opencv-python
+Pillow
+moviepy==1.0.3
+torch
+torchvision
+torchaudio
+onnx
+onnxruntime-gpu
+onnxruntime
+insightface
+gunicorn
+PyQt5

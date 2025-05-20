@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" x-data="{ darkMode: false }" :class="{ 'dark': darkMode }">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Face Swap Web App</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs" defer></script>
+</head>
+<body class="bg-white dark:bg-gray-900 text-black dark:text-white transition-all">
+
+  <div class="min-h-screen flex flex-col items-center justify-center px-4 py-10 space-y-10">
+
+    <div class="w-full max-w-5xl">
+      <div class="flex justify-between items-center mb-6">
+        <h1 class="text-3xl font-bold">AI Face Swap</h1>
+        <button @click="darkMode = !darkMode" class="bg-gray-200 dark:bg-gray-700 px-4 py-2 rounded-lg">
+          Toggle Theme
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+        <!-- Upload Face -->
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
+          <h2 class="text-xl font-semibold mb-3">1. Upload Face</h2>
+          <input type="file" id="face-upload" accept="image/*" class="mb-3 w-full" />
+          <button onclick="uploadFace()" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">Upload</button>
+        </div>
+
+        <!-- Upload Video -->
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
+          <h2 class="text-xl font-semibold mb-3">2. Upload Video</h2>
+          <input type="file" id="video-upload" accept="video/*" class="mb-3 w-full" />
+          <button onclick="uploadVideo()" class="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700">Process</button>
+        </div>
+
+        <!-- Webcam Controls -->
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
+          <h2 class="text-xl font-semibold mb-3">3. Webcam</h2>
+          <button onclick="startWebcam()" class="w-full mb-2 bg-purple-600 text-white py-2 rounded hover:bg-purple-700">Start</button>
+          <button onclick="stopWebcam()" class="w-full bg-red-500 text-white py-2 rounded hover:bg-red-600">Stop</button>
+        </div>
+
+      </div>
+
+      <!-- Webcam Feed -->
+      <div class="mt-10 w-full flex justify-center">
+        <img id="webcam-feed" src="" class="rounded-xl border shadow w-full max-w-xl" />
+      </div>
+
+      <!-- Toggles -->
+      <div class="flex flex-col md:flex-row justify-center items-center gap-4 mt-8">
+        <button onclick="toggleAnonymize()" class="bg-yellow-500 text-white px-6 py-2 rounded hover:bg-yellow-600">Toggle Anonymize</button>
+        <button onclick="toggleSaveFaces()" class="bg-pink-500 text-white px-6 py-2 rounded hover:bg-pink-600">Toggle Save Faces</button>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    async function uploadFace() {
+      const fileInput = document.getElementById('face-upload');
+      const formData = new FormData();
+      formData.append('file', fileInput.files[0]);
+      await fetch('/upload-face', { method: 'POST', body: formData });
+      alert('Face uploaded!');
+    }
+
+    async function uploadVideo() {
+      const fileInput = document.getElementById('video-upload');
+      const formData = new FormData();
+      formData.append('file', fileInput.files[0]);
+      const res = await fetch('/upload-video', { method: 'POST', body: formData });
+      const blob = await res.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'face_swapped_video.mp4';
+      a.click();
+    }
+
+    function startWebcam() {
+      document.getElementById('webcam-feed').src = "/start-webcam";
+    }
+
+    async function stopWebcam() {
+      await fetch('/stop-webcam');
+      document.getElementById('webcam-feed').src = "";
+    }
+
+    async function toggleAnonymize() {
+      const res = await fetch('/toggle-anonymize', { method: 'POST' });
+      const data = await res.json();
+      alert('Anonymize is now: ' + (data.anonymize ? 'ON' : 'OFF'));
+    }
+
+    async function toggleSaveFaces() {
+      const res = await fetch('/toggle-save-faces', { method: 'POST' });
+      const data = await res.json();
+      alert('Save faces is now: ' + (data.save_faces ? 'ON' : 'OFF'));
+    }
+  </script>
+
+</body>
+</html>
