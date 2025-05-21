@@ -1,6 +1,7 @@
 # FaceSwap.AI
 
-FaceSwap.AI is a Python-based AI application designed to perform face swapping between two images. This repository provides two solutions:
+FaceSwap.AI is a Python-based AI application designed to perform face swapping not only between two images, but also from an image to a video, and even in real time via a live webcam feed.  
+This repository provides two solutions:
 - A **desktop GUI application** using **PyQt5**
 - A **web application** using **Flask**
 
@@ -27,15 +28,20 @@ FaceSwap.AI is a Python-based AI application designed to perform face swapping b
 
 ## Features
 
-- AI-powered face swapping between two images
+- AI-powered face swapping:
+  - **Between two images**
+  - **From an image to a video**
+  - **From an image to a live webcam feed (real-time)**
 - User-friendly desktop GUI (PyQt5)
 - Simple web interface (Flask)
-- Drag and drop / file upload support
-- Download or save the swapped image
+- Drag-and-drop / file upload support
+- Download or save swapped results (image/video/frames)
 
 ---
 
 ## Demo
+
+<!-- Optionally add demo images, videos, or GIFs here -->
 
 ---
 
@@ -46,16 +52,20 @@ FaceSwap.AI is a Python-based AI application designed to perform face swapping b
 The PyQt5 desktop application provides an intuitive graphical interface for face swapping.
 
 **Features:**
-- Select source and target images from your computer
-- Preview original and swapped images side by side
-- Swap faces with a single click
-- Save the swapped image locally
+- Select source and target images, video files, or live webcam as input
+- Swap faces:
+  - Between two images
+  - From an image onto a video
+  - From an image onto live webcam frames (real-time)
+- Preview original and swapped results side by side
+- Save the swapped image or video locally
 
 **Workflow:**
 1. Launch the PyQt5 app.
-2. Select the source and target images.
-3. Click the "Swap Faces" button.
-4. The swapped image appears in the app. Save it if desired.
+2. Select the desired mode: Image, Video, or Webcam.
+3. Provide the source image and the target (image, video, or webcam).
+4. Click the "Swap Faces" button.
+5. The swapped result appears in the app; save it if desired.
 
 ---
 
@@ -64,15 +74,15 @@ The PyQt5 desktop application provides an intuitive graphical interface for face
 The Flask web application allows users to perform face swapping directly from a web browser.
 
 **Features:**
-- Upload two images via a web form
+- Upload images or video, or use live webcam (if supported)
 - Server-side processing for face swapping
-- View and download the swapped image in-browser
+- View and download the swapped image or video in-browser
 
 **Workflow:**
 1. Start the Flask server.
 2. Visit `http://127.0.0.1:5000/` in your browser.
-3. Upload the two images.
-4. The swapped image is displayed for download.
+3. Upload your source image and the target (image, video, or choose webcam if available).
+4. The swapped result is displayed and available for download.
 
 ---
 
@@ -106,17 +116,17 @@ pip install -r requirements.txt
 ```bash
 python main.py
 ```
-- This opens the desktop GUI.
-- Follow instructions to select images and swap faces.
+- Opens the desktop GUI.
+- Follow instructions to select images, videos, or webcam and swap faces.
 
 ### Running Flask Web App
 
 ```bash
 python app.py
 ```
-- This starts the web server.
+- Starts the web server.
 - Open your browser and go to `http://127.0.0.1:5000/`
-- Upload images and perform face swapping online.
+- Upload images, videos, or use webcam to perform face swapping online.
 
 ---
 
@@ -145,5 +155,3 @@ For major changes, please open an issue first to discuss what you would like to 
 ## License
 
 [MIT License](LICENSE)
-
----
