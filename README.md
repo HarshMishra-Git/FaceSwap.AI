@@ -104,7 +104,7 @@ pip install -r requirements.txt
 ### Running PyQt5 App
 
 ```bash
-python pyqt_faceswap.py
+python main.py
 ```
 - This opens the desktop GUI.
 - Follow instructions to select images and swap faces.
@@ -112,7 +112,7 @@ python pyqt_faceswap.py
 ### Running Flask Web App
 
 ```bash
-python flask_app.py
+python app.py
 ```
 - This starts the web server.
 - Open your browser and go to `http://127.0.0.1:5000/`
